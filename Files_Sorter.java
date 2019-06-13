@@ -16,7 +16,7 @@ public class Files_Sorter {
 			dir = args[0];
 		}
 		System.out.println("DIRECTORY: "+dir);
-		//sorter(dir);
+		sorter(dir);
 
 	}
 
@@ -29,13 +29,14 @@ public class Files_Sorter {
 		File[] contents = directory.listFiles();
 		System.out.println("NUMBER OF FILES/FOLDER: "+contents.length);
 		for ( File f : contents) {
+			//System.out.println(f.getAbsolutePath());
 			found = false;
 			String file_name = f.getName();
 			int i = file_name.lastIndexOf(".");
 			if(i > 0){
 				String ext = file_name.substring(i+1);
 
-				if("exe".equalsIgnoreCase(ext)){ // executable files
+				if("exe".equalsIgnoreCase(ext) || "lnk".equalsIgnoreCase(ext)){ // executable files
 					if(!a){
 						new File(folder+"/EXE").mkdirs(); // create EXE dir if not found
 						a = true;
