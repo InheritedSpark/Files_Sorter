@@ -2,11 +2,13 @@ import java.io.File;
 
 public class Files_Sorter {
 
+	// static Map<String, String> runnables = ImmutableMap.of("EXE","EXE");
 	static String[] Images = { "JPG", "PNG", "GIF", "WEBP", "TIFF", "PSD", "RAW", "BMP", "HEIF", "INDD", "JPEG" };
 	static String[] Docs = { "DOCX", "DOC", "PDF", "HTML", "ODT", "XLS", "XLSX", "PPT", "PPTX", "ODS", "TXT", "CSV" };
 	static String[] Sounds = {"MP3","WMA","AAC","WAV", "FLAC","AIF"};
 	static String[] Vids = {"WEBM","MPG","MP2","MPEG","MPE","MPV","OGG","MP4","M4P","M4V","AVI","WMV","MOV","QT","FLV","SWF","AVCHD"};
 	static String[] Zips = {"ZIP","SITX","7Z","RAR", "GZ"};
+	static String[] Runnables = {"EXE","LNK"};
 
 	public static void main(String[] args) {
 		String dir = "";
@@ -35,15 +37,16 @@ public class Files_Sorter {
 			int i = file_name.lastIndexOf(".");
 			if(i > 0){
 				String ext = file_name.substring(i+1);
-
-				if("exe".equalsIgnoreCase(ext) || "lnk".equalsIgnoreCase(ext)){ // executable files
-					if(!a){
-						new File(folder+"/EXE").mkdirs(); // create EXE dir if not found
-						a = true;
+				for(String app: Runnables){
+					if(app.equalsIgnoreCase(ext)){ // executable files
+						if(!a){
+							new File(folder+"/EXE").mkdirs(); // create EXE dir if not found
+							a = true;
+						}
+						System.out.println(folder+"/EXE/"+f.getName());
+						f.renameTo(new File(folder+"/EXE/"+f.getName()));
+						found = true;
 					}
-					System.out.println(folder+"/EXE/"+f.getName());
-					f.renameTo(new File(folder+"/EXE/"+f.getName()));
-					found = true;
 				}
 
 				if(!found){
